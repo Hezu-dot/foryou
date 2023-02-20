@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <input placeholder="Login" id="login"><br>
+        <input placeholder="Password" type="password" id="password"><br>
+        <button type="button">Reg</button>
+        <a>Not register? <a href="/reg">Register</a><br>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('button').on('click', function() {
+            let login = $("#login").val();
+            let password = $("#password").val();
+
+            $.post("/reg", {
+                    login: login,
+                    password: password
+                },
+                function(data) {
+                    if (data == "user") {
+                        return alert("Login already used");
+                    } else {
+                        $.cookie("token", data, {
+                            expries: 1
+                        });
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>
